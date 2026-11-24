@@ -24,3 +24,6 @@ dev = [
     "jupyterlab>=4.6.6",
     "pytest>=9.2.0",
 ]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
