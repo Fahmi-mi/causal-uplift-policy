@@ -1,6 +1,6 @@
 # Causal Uplift Modeling & Constrained Policy Engine
 
-> **Status:** Project Specification / Blueprint (not yet implemented; evaluation result fields marked `TBD` until experiments are run).
+> **Status:** Implemented & Verified (Hillstrom RCT benchmarks, constrained policy optimizer, contextual bandit simulator, FastAPI decision engine, PSI drift monitoring, and Streamlit dashboard).
 
 An end-to-end **Causal Data Science and Decision Engineering** platform that moves beyond correlation-based churn/conversion prediction to estimate **Individual Treatment Effects (ITE / CATE)** and optimize intervention budgets under real-world business constraints.
 
@@ -105,7 +105,7 @@ Simulate sequential traffic where customer responsiveness drifts over time:
 
 ---
 
-## Proposed Repository Structure
+## Repository Structure
 
 ```text
 causal-uplift-policy/
@@ -133,7 +133,8 @@ causal-uplift-policy/
 │       ├── main.py                  # FastAPI application
 │       ├── schemas.py               # Pydantic request/response contracts
 │       └── drift.py                 # Feature PSI drift monitoring
-├── dashboard/                       # Streamlit or SvelteKit interactive simulator
+├── dashboard/
+│   └── app.py                       # Streamlit interactive policy simulator
 ├── tests/
 │   ├── test_diagnostics.py
 │   ├── test_evaluator.py            # Qini/AUUC correctness assertions
@@ -141,7 +142,26 @@ causal-uplift-policy/
 │   └── test_api.py                  # FastAPI endpoint & schema tests
 ├── Dockerfile
 ├── pyproject.toml
+├── uv.lock
 └── README.md
+```
+
+---
+
+## Quickstart (`uv`)
+
+```bash
+uv sync
+uv run pytest -v
+uv run uvicorn src.api.main:app --reload
+uv run streamlit run dashboard/app.py
+```
+
+Docker:
+
+```bash
+docker build -t causal-uplift-policy .
+docker run --rm -p 8000:8000 -v $(pwd)/data:/app/data causal-uplift-policy
 ```
 
 ---
