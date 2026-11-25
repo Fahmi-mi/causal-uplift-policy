@@ -146,16 +146,17 @@ causal-uplift-policy/
 
 ---
 
-## Target Experiment Results (To Populate After Runs)
+## Target Experiment Results (Hillstrom Test Split, `visit`)
 
 | Policy / Estimator | AUUC | Qini Coeff | Uplift@20% | Projected Net Profit (at Budget B) |
 |---|---|---|---|---|
-| Random Targeting | TBD | TBD | TBD | TBD |
-| Naive Propensity Model | TBD | TBD | TBD | TBD |
-| T-Learner (LightGBM) | TBD | TBD | TBD | TBD |
-| X-Learner (LightGBM) | TBD | TBD | TBD | TBD |
-| DR-Learner (EconML) | TBD | TBD | TBD | TBD |
-| Causal Forest DML | TBD | TBD | TBD | TBD |
+| Random Targeting | -0.0043 | -0.0092 | 0.0463 | TBD |
+| Naive Propensity Model | 0.0104 | 0.0187 | 0.0624 | TBD |
+| S-Learner (LightGBM) | 0.0198 | 0.0348 | 0.0733 | TBD |
+| T-Learner (LightGBM) | 0.0067 | 0.0123 | 0.0509 | TBD |
+| X-Learner (LightGBM) | 0.0114 | 0.0200 | 0.0692 | TBD |
+| DR-Learner (EconML) | 0.0213 | 0.0368 | 0.0567 | TBD |
+| Causal Forest DML | 0.0000 | 0.0000 | 0.0496 | TBD |
 
 ---
 
