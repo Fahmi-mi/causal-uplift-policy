@@ -146,17 +146,17 @@ causal-uplift-policy/
 
 ---
 
-## Target Experiment Results (Hillstrom Test Split, `visit`)
+## Target Experiment Results (Hillstrom Test Split, `visit`, Budget `$2,500` at `$15`/visit & `$0.50`/email)
 
-| Policy / Estimator | AUUC | Qini Coeff | Uplift@20% | Projected Net Profit (at Budget B) |
+| Policy / Estimator | AUUC | Qini Coeff | Uplift@20% | Projected Net Profit (IPW at Budget B) |
 |---|---|---|---|---|
-| Random Targeting | -0.0043 | -0.0092 | 0.0463 | TBD |
-| Naive Propensity Model | 0.0104 | 0.0187 | 0.0624 | TBD |
-| S-Learner (LightGBM) | 0.0198 | 0.0348 | 0.0733 | TBD |
-| T-Learner (LightGBM) | 0.0067 | 0.0123 | 0.0509 | TBD |
-| X-Learner (LightGBM) | 0.0114 | 0.0200 | 0.0692 | TBD |
-| DR-Learner (EconML) | 0.0213 | 0.0368 | 0.0567 | TBD |
-| Causal Forest DML | 0.0000 | 0.0000 | 0.0496 | TBD |
+| Random Targeting | -0.0043 | -0.0092 | 0.0463 | $679.37 |
+| Naive Propensity Model | 0.0104 | 0.0187 | 0.0624 | $1,529.02 |
+| S-Learner (LightGBM) | 0.0198 | 0.0348 | 0.0733 | $2,454.79 |
+| T-Learner (LightGBM) | 0.0067 | 0.0123 | 0.0509 | $2,095.21 |
+| X-Learner (LightGBM) | 0.0114 | 0.0200 | 0.0692 | $2,253.21 |
+| DR-Learner (EconML) | 0.0213 | 0.0368 | 0.0567 | $2,679.37 |
+| Causal Forest DML | 0.0000 | 0.0000 | 0.0496 | $1,735.85 |
 
 ---
 
