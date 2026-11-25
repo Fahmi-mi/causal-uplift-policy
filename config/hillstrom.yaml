@@ -1,0 +1,36 @@
+dataset_name: hillstrom
+raw_dir: data/raw
+processed_path: data/processed/hillstrom.parquet
+
+treatment_arm_col: segment
+control_arm_value: "No E-Mail"
+treatment_col: treatment
+outcome_cols:
+  - visit
+  - conversion
+  - spend
+
+feature_cols:
+  - recency
+  - history_segment
+  - history
+  - mens
+  - womens
+  - zip_code
+  - newbie
+  - channel
+
+split:
+  train_size: 0.6
+  cal_size: 0.2
+  test_size: 0.2
+  stratify_cols:
+    - treatment
+    - conversion
+  random_seed: 42
+
+diagnostics:
+  smd_threshold: 0.1
+  overlap_clip_low: 0.05
+  overlap_clip_high: 0.95
+  n_folds: 5

@@ -1,0 +1,38 @@
+dataset_name: criteo
+raw_path: data/raw/criteo-uplift-v2.1.csv.gz
+processed_path: data/processed/criteo_subsampled.parquet
+
+treatment_col: treatment
+outcome_cols:
+  - visit
+  - conversion
+
+feature_cols:
+  - f0
+  - f1
+  - f2
+  - f3
+  - f4
+  - f5
+  - f6
+  - f7
+  - f8
+  - f9
+  - f10
+  - f11
+
+subsample:
+  fraction: 0.05
+  stratify_cols:
+    - treatment
+    - conversion
+  seed: 0.42
+
+split:
+  train_size: 0.6
+  cal_size: 0.2
+  test_size: 0.2
+  stratify_cols:
+    - treatment
+    - conversion
+  random_seed: 42

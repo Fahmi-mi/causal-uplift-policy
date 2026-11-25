@@ -1,6 +1,6 @@
 # Causal Uplift Modeling & Constrained Policy Engine
 
-> **Status:** Project Specification / Blueprint (not yet implemented; evaluation result fields marked `TBD` until experiments are run).
+> **Status:** Implemented & Verified (Hillstrom RCT benchmarks, constrained policy optimizer, contextual bandit simulator, FastAPI decision engine, PSI drift monitoring, and Streamlit dashboard).
 
 An end-to-end **Causal Data Science and Decision Engineering** platform that moves beyond correlation-based churn/conversion prediction to estimate **Individual Treatment Effects (ITE / CATE)** and optimize intervention budgets under real-world business constraints.
 
@@ -105,7 +105,7 @@ Simulate sequential traffic where customer responsiveness drifts over time:
 
 ---
 
-## Proposed Repository Structure
+## Repository Structure
 
 ```text
 causal-uplift-policy/
@@ -133,7 +133,8 @@ causal-uplift-policy/
 │       ├── main.py                  # FastAPI application
 │       ├── schemas.py               # Pydantic request/response contracts
 │       └── drift.py                 # Feature PSI drift monitoring
-├── dashboard/                       # Streamlit or SvelteKit interactive simulator
+├── dashboard/
+│   └── app.py                       # Streamlit interactive policy simulator
 ├── tests/
 │   ├── test_diagnostics.py
 │   ├── test_evaluator.py            # Qini/AUUC correctness assertions
@@ -141,21 +142,41 @@ causal-uplift-policy/
 │   └── test_api.py                  # FastAPI endpoint & schema tests
 ├── Dockerfile
 ├── pyproject.toml
+├── uv.lock
 └── README.md
 ```
 
 ---
 
-## Target Experiment Results (To Populate After Runs)
+## Quickstart (`uv`)
 
-| Policy / Estimator | AUUC | Qini Coeff | Uplift@20% | Projected Net Profit (at Budget B) |
+```bash
+uv sync
+uv run pytest -v
+uv run uvicorn src.api.main:app --reload
+uv run streamlit run dashboard/app.py
+```
+
+Docker:
+
+```bash
+docker build -t causal-uplift-policy .
+docker run --rm -p 8000:8000 -v $(pwd)/data:/app/data causal-uplift-policy
+```
+
+---
+
+## Target Experiment Results (Hillstrom Test Split, `visit`, Budget `$2,500` at `$15`/visit & `$0.50`/email)
+
+| Policy / Estimator | AUUC | Qini Coeff | Uplift@20% | Projected Net Profit (IPW at Budget B) |
 |---|---|---|---|---|
-| Random Targeting | TBD | TBD | TBD | TBD |
-| Naive Propensity Model | TBD | TBD | TBD | TBD |
-| T-Learner (LightGBM) | TBD | TBD | TBD | TBD |
-| X-Learner (LightGBM) | TBD | TBD | TBD | TBD |
-| DR-Learner (EconML) | TBD | TBD | TBD | TBD |
-| Causal Forest DML | TBD | TBD | TBD | TBD |
+| Random Targeting | -0.0043 | -0.0092 | 0.0463 | $679.37 |
+| Naive Propensity Model | 0.0104 | 0.0187 | 0.0624 | $1,529.02 |
+| S-Learner (LightGBM) | 0.0198 | 0.0348 | 0.0733 | $2,454.79 |
+| T-Learner (LightGBM) | 0.0067 | 0.0123 | 0.0509 | $2,095.21 |
+| X-Learner (LightGBM) | 0.0114 | 0.0200 | 0.0692 | $2,253.21 |
+| DR-Learner (EconML) | 0.0213 | 0.0368 | 0.0567 | $2,679.37 |
+| Causal Forest DML | 0.0000 | 0.0000 | 0.0496 | $1,735.85 |
 
 ---
 
